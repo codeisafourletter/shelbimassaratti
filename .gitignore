@@ -1,0 +1,12 @@
+# Generated site
+_site/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
