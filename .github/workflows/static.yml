@@ -27,6 +27,9 @@ jobs:
       - name: Enrich biography with verified public facts
         run: python .github/scripts/enrich_site.py
 
+      - name: Remove omitted biographical detail
+        run: python .github/scripts/remove_ged.py
+
       - name: Prepare site artifact
         run: |
           mkdir -p _site
