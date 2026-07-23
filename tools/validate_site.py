@@ -19,6 +19,19 @@ INDEXABLE_PAGES = {
     "press-kit.html": f"{DOMAIN}/press-kit.html",
     "privacy.html": f"{DOMAIN}/privacy.html",
 }
+BLOCKED_PUBLIC_TEXT = {
+    "40K–50K": "public follower range is paused pending dated evidence",
+    "Ricardo Butler": "recommendation is paused pending source and usage permission",
+    "Smoove Music": "relationship claim is not publication-ready",
+    "Too $hort": "national-artist event claim is not publication-ready",
+    "E-40": "national-artist event claim is not publication-ready",
+    "Curren$y": "national-artist event claim is not publication-ready",
+    "Juicy J": "national-artist event claim is not publication-ready",
+    "Rittz": "national-artist event claim is not publication-ready",
+    "Michael “5000” Watts": "national-artist event claim is not publication-ready",
+    "static.wixstatic.com": "remote Wix image hotlinking is not approved",
+}
+
 REQUIRED_FILES = {
     "index.html",
     "404.html",
@@ -153,6 +166,10 @@ def parse_html(path: Path) -> AuditParser:
         parser.errors.append("Jekyll front matter remains in the built file")
     if "codeisafourletter.github.io" in text:
         parser.errors.append("Legacy GitHub Pages hostname remains in public output")
+    folded = text.casefold()
+    for phrase, reason in BLOCKED_PUBLIC_TEXT.items():
+        if phrase.casefold() in folded:
+            parser.errors.append(f"Blocked public text {phrase!r}: {reason}")
     return parser
 
 
