@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://codeisafourletter.github.io/sitemap.xml
