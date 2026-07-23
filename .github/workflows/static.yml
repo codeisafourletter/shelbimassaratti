@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Enrich biography with verified public facts
         run: python .github/scripts/enrich_site.py
@@ -30,10 +30,39 @@ jobs:
       - name: Remove omitted biographical detail
         run: python .github/scripts/remove_ged.py
 
-      - name: Prepare site artifact
+      - name: Build self-contained homepage
         run: |
           mkdir -p _site
-          cp index.html press-kit.html privacy.html 404.html favicon.svg social-card.svg site.webmanifest robots.txt sitemap.xml CNAME .nojekyll _site/
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path("index.html").read_text(encoding="utf-8")
+          if source.startswith("---\n---\n"):
+              source = source[8:]
+
+          for filename in (
+              "styles1.css",
+              "styles2.css",
+              "styles3.css",
+              "body_part1.html",
+              "body_part2.html",
+              "body_part3.html",
+              "script.js",
+          ):
+              marker = "{% include_relative " + filename + " %}"
+              content = Path(filename).read_text(encoding="utf-8")
+              if marker not in source:
+                  raise RuntimeError(f"Missing build marker for {filename}")
+              source = source.replace(marker, content)
+
+          if "{% include_relative" in source:
+              raise RuntimeError("Unresolved include marker remains in homepage")
+
+          Path("_site/index.html").write_text(source, encoding="utf-8")
+          PY
+
+          cp press-kit.html privacy.html 404.html favicon.svg social-card.svg site.webmanifest robots.txt sitemap.xml CNAME _site/
+          touch _site/.nojekyll
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
