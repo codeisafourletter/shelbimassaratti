@@ -24,6 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Enrich biography with verified public facts
+        run: python .github/scripts/enrich_site.py
+
       - name: Prepare site artifact
         run: |
           mkdir -p _site
