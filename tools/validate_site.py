@@ -14,11 +14,17 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 DOMAIN = "https://shelbimassaratti.com"
+INDEXABLE_PAGES = {
+    "index.html": f"{DOMAIN}/",
+    "press-kit.html": f"{DOMAIN}/press-kit.html",
+    "privacy.html": f"{DOMAIN}/privacy.html",
+}
 REQUIRED_FILES = {
     "index.html",
     "404.html",
     "press-kit.html",
     "privacy.html",
+    "secondary.css",
     "favicon.svg",
     "apple-touch-icon.png",
     "icon-192.png",
@@ -28,6 +34,7 @@ REQUIRED_FILES = {
     "site.webmanifest",
     "robots.txt",
     "sitemap.xml",
+    "CNAME",
     ".nojekyll",
 }
 
@@ -38,12 +45,12 @@ class AuditParser(HTMLParser):
         self.ids: list[str] = []
         self.references: list[tuple[str, str]] = []
         self.errors: list[str] = []
-        self.warnings: list[str] = []
         self.meta: dict[str, str] = {}
         self.links: dict[str, str] = {}
         self.html_lang = ""
         self.title_parts: list[str] = []
         self.in_title = False
+        self.h1_count = 0
 
     @staticmethod
     def attrs_dict(attrs: list[tuple[str, str | None]]) -> dict[str, str]:
@@ -57,6 +64,8 @@ class AuditParser(HTMLParser):
             self.html_lang = data.get("lang", "")
         if tag == "title":
             self.in_title = True
+        if tag == "h1":
+            self.h1_count += 1
         if "id" in data:
             self.ids.append(data["id"])
 
@@ -78,8 +87,11 @@ class AuditParser(HTMLParser):
                 self.references.append(("href", href))
             if data.get("target") == "_blank":
                 rel = set(data.get("rel", "").lower().split())
-                if "noopener" not in rel:
-                    self.errors.append(f'Link to {href!r} uses target="_blank" without rel="noopener"')
+                missing = {"noopener", "noreferrer"} - rel
+                if missing:
+                    self.errors.append(
+                        f'Link to {href!r} uses target="_blank" without rel="noopener noreferrer"'
+                    )
 
         if tag in {"img", "script", "source", "video", "audio", "iframe"}:
             source = data.get("src")
@@ -139,6 +151,8 @@ def parse_html(path: Path) -> AuditParser:
         parser.errors.append("Unresolved include_relative marker")
     if text.startswith("---"):
         parser.errors.append("Jekyll front matter remains in the built file")
+    if "codeisafourletter.github.io" in text:
+        parser.errors.append("Legacy GitHub Pages hostname remains in public output")
     return parser
 
 
@@ -152,6 +166,7 @@ def validate(site: Path) -> tuple[list[str], list[str]]:
             errors.append(f"Missing generated file: {name}")
 
     pages: dict[Path, AuditParser] = {}
+    titles: dict[str, Path] = {}
     for page in sorted(site.rglob("*.html")):
         parser = parse_html(page)
         pages[page.resolve()] = parser
@@ -160,6 +175,15 @@ def validate(site: Path) -> tuple[list[str], list[str]]:
             errors.append(f"{prefix}: missing html lang attribute")
         if not parser.title:
             errors.append(f"{prefix}: missing title")
+        elif parser.title in titles:
+            errors.append(f"{prefix}: duplicate title also used by {titles[parser.title].relative_to(site)}")
+        else:
+            titles[parser.title] = page
+        if parser.h1_count != 1:
+            errors.append(f"{prefix}: expected exactly one h1, found {parser.h1_count}")
+        for required_meta in ("viewport", "description", "theme-color"):
+            if not parser.meta.get(required_meta):
+                errors.append(f"{prefix}: missing metadata {required_meta}")
         for message in parser.errors:
             errors.append(f"{prefix}: {message}")
         for duplicate, count in Counter(parser.ids).items():
@@ -183,15 +207,21 @@ def validate(site: Path) -> tuple[list[str], list[str]]:
                 if target_parser and fragment not in set(target_parser.ids):
                     errors.append(f"{prefix}: missing anchor #{fragment} in {target_path.relative_to(site)}")
 
+    for name, canonical in INDEXABLE_PAGES.items():
+        parser = pages.get((site / name).resolve())
+        if not parser:
+            continue
+        if parser.links.get("canonical") != canonical:
+            errors.append(f"{name}: canonical URL is missing or incorrect")
+        for key in ("og:title", "og:description"):
+            if not parser.meta.get(key):
+                errors.append(f"{name}: missing metadata {key}")
+
     homepage = pages.get((site / "index.html").resolve())
     if homepage:
         expected_meta = {
-            "description": None,
             "robots": None,
-            "viewport": None,
-            "theme-color": None,
             "og:title": "The Real Miss Texas",
-            "og:description": None,
             "og:image": f"{DOMAIN}/social-card.png",
             "twitter:card": "summary_large_image",
             "twitter:image": f"{DOMAIN}/social-card.png",
@@ -202,10 +232,10 @@ def validate(site: Path) -> tuple[list[str], list[str]]:
                 errors.append(f"index.html: missing metadata {key}")
             elif expected and expected not in value:
                 errors.append(f"index.html: {key} should contain {expected!r}")
-        if homepage.links.get("canonical") != f"{DOMAIN}/":
-            errors.append("index.html: canonical URL is missing or incorrect")
-        if "The Real Miss Texas" not in homepage.title:
-            errors.append("index.html: primary tagline is missing from the title")
+
+    not_found = pages.get((site / "404.html").resolve())
+    if not_found and "noindex" not in not_found.meta.get("robots", ""):
+        errors.append("404.html: robots metadata must include noindex")
 
     manifest_path = site / "site.webmanifest"
     if manifest_path.exists():
@@ -229,6 +259,10 @@ def validate(site: Path) -> tuple[list[str], list[str]]:
         if f"Sitemap: {DOMAIN}/sitemap.xml" not in robots:
             errors.append("robots.txt: missing canonical Sitemap directive")
 
+    cname_path = site / "CNAME"
+    if cname_path.exists() and cname_path.read_text(encoding="utf-8").strip() != "shelbimassaratti.com":
+        errors.append("CNAME: expected shelbimassaratti.com")
+
     sitemap_path = site / "sitemap.xml"
     if sitemap_path.exists():
         try:
@@ -238,8 +272,10 @@ def validate(site: Path) -> tuple[list[str], list[str]]:
         else:
             namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
             urls = [node.text or "" for node in root.findall("s:url/s:loc", namespace)]
-            if f"{DOMAIN}/" not in urls:
-                errors.append("sitemap.xml: homepage URL is missing")
+            expected_urls = set(INDEXABLE_PAGES.values())
+            missing_urls = expected_urls - set(urls)
+            for url in sorted(missing_urls):
+                errors.append(f"sitemap.xml: missing URL {url}")
             for url in urls:
                 if url and not url.startswith(f"{DOMAIN}/"):
                     errors.append(f"sitemap.xml: non-canonical URL {url}")
