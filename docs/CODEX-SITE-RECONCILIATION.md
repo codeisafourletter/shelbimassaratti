@@ -89,7 +89,7 @@ Safe public anchors include:
 - the July 22, 2023 Killeen promotional event featuring Bone The Mack, only if described as promotional/event history;
 - selected Plattinum roster/development/promotional names only where the wording makes the specific category clear.
 
-Do not publish “Gun It,” “Lollipop (O Lawd),” “Not Today,” exact follower counts, combined reach, or unverified artist-management relationships until retained evidence is added.
+Do not publish “Gun It,” “Lollipop (O Lawd),” “Not Today,” or unverified artist-management relationships until retained evidence is added. Public follower totals are allowed when they come from visible platform counts or retained screenshots. Label them as approximate where appropriate and include an “as of” date if practical. A combined total must clearly identify which platforms were included and must not imply unique individuals.
 
 Do not add a paragraph explaining all possible non-relationships. Label every item narrowly enough that a global disclaimer is unnecessary.
 
@@ -118,7 +118,7 @@ Rewrite `press-kit.html` to match the corrected public positioning:
 - selected verified milestones;
 - verified music/media links;
 - no inflated roster statement;
-- no follower figures without dated evidence;
+- public follower totals may be included when they are visible or retained, dated where practical, and labeled accurately;
 - one compact non-attorney note only if contract-aware work is explicitly mentioned;
 - contact CTA consistent with the homepage.
 
