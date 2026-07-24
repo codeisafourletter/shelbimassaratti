@@ -55,7 +55,7 @@ Safe central facts:
 Restrictions:
 
 - Do not imply Shelbi is an attorney or provides legal advice.
-- Do not publish exact or combined follower counts without dated retained evidence.
+- Public follower totals and combined reach figures are allowed. Use figures visible on public profiles or preserved in dated project evidence. Label combined or rounded figures as approximate, and include an “as of” date when the number is likely to change.
 - Do not call an artist a managed client unless that relationship is documented.
 - Do not identify Jamar Chapman as Hakeem Kydavii without proof.
 - Do not publish “Not Today.”
