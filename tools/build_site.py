@@ -14,6 +14,7 @@ REQUIRED_PUBLIC_FILES = (
     "press-kit.html",
     "privacy.html",
     "404.html",
+    "secondary.css",
     "favicon.svg",
     "apple-touch-icon.png",
     "icon-192.png",
@@ -91,7 +92,7 @@ def build(root: Path, output: Path) -> None:
     index = root / "index.html"
     if not index.is_file():
         raise FileNotFoundError(f"Missing source homepage: {index}")
-    if output == root or root in output.parents and output.name in {".", ".."}:
+    if output == root:
         raise RuntimeError("Refusing to build over the project root")
 
     if output.exists():
