@@ -4,6 +4,8 @@ Static promotional website for Shelbi Massaratti and Plattinum Management, deplo
 
 ## Status
 
+Candidate: **1.0.0-rc.1**, the first numbered release (no previous tags). Adds a local inquiry builder; see [release notes](RELEASE-NOTES.md). Candidate changes are not deployed until the draft PR is reviewed and merged.
+
 Maintained production website. Pull requests build and validate the generated Pages artifact; publishing remains a separate deployment step.
 
 ## Sources of truth
@@ -43,6 +45,7 @@ in this repository’s Git history; no history was rewritten.
 ```bash
 python tools/build_site.py
 python tools/validate_site.py --site _site
+node --test tests/*.test.cjs
 python -m http.server 8000 --directory _site
 ```
 
