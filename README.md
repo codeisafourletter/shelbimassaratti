@@ -30,6 +30,14 @@ Do not edit `_site/index.html`; it is generated and ignored by Git.
 
 Unrelated utility pages and one-time content transformation scripts do not belong in this repository.
 
+Historical photographs, saved reference pages, and HTML experiments formerly stored in
+`MEADOWGLEN/`, `cl_recalls/`, `reviews/`, `table/`, and `testhtml/` are preserved in the
+private [personal reference archive](https://github.com/codeisafourletter/personal-reference-archive).
+All five directory trees were verified against archive commit
+`904eeab7f6217785ff842d3f8801c9bfac2cd41e` before removal from the website source.
+These files were not part of the generated website. Their original versions also remain
+in this repository’s Git history; no history was rewritten.
+
 ## Local build
 
 ```bash
