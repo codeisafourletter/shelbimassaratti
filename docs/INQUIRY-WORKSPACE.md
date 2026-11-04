@@ -26,7 +26,7 @@ Persistence is opt-in and private to the browser profile; no encryption or share
 
 - Build/validator covers the public page and linked static assets.
 - Eleven Node unit tests cover inquiry structure, route requirements, URL/date/schema limits, text-safe output, desk roundtrip and duplicate preservation (including the original quick-message tests).
-- Nine Playwright browser journeys cover mobile/tablet/desktop, artist and event flows, download/parse, draft persistence and reference stability, clear, safe import, operator status/notes/search/export/remove, demo isolation, no-JS contact fallback, and loopback server file/Host guards.
+- Eleven Playwright browser journeys cover mobile/tablet/desktop, artist and event flows, download/parse, draft persistence and reference stability, clear, safe import, operator status/notes/search/export/remove, demo isolation, no-JS contact fallback, and loopback server file/Host guards.
 - Browser tests intercept no real contacts, accounts or private user data; all fixtures use `example.com` and synthetic names.
 
 ```bash
@@ -39,3 +39,5 @@ npm run test:browser
 ```
 
 This is a candidate branch, not a deployed intake backend. Human visual/wording approval remains required before merging. Existing biographies, imagery and contact destinations are unchanged.
+
+Pending file imports are canceled by clear or newer edits, so delayed reads cannot restore discarded personal data. Browser regression tests cover visitor and operator clearing during an import.

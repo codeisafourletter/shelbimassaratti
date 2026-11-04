@@ -18,8 +18,10 @@ Run the desk with `python tools/serve_inquiry_desk.py` (loopback8055). No backen
 
 ## Validation and review gate
 
-Python build and site validation;11 Node tests;9 complete browser journeys including390/768/1440px layouts, persistence, same-reference restore, operator actions, stale data/duplicate protection and no submission traffic. Independent review identified and prompted fixes for restored reference continuity and demo clear preserving saved owner data. No biographies, imagery or claims about artist relationships were changed. Human visual and wording review is still required for the draft PR.
+Python build and site validation;11 Node tests;11 complete browser journeys including390/768/1440px layouts, persistence, same-reference restore, operator actions, stale data/duplicate protection and no submission traffic. Independent review identified and prompted fixes for restored reference continuity and demo clear preserving saved owner data. No biographies, imagery or claims about artist relationships were changed. Human visual and wording review is still required for the draft PR.
 
 ## Limits
 
 The request is sent manually through the existing contact channel; the desk does not receive messages automatically. No availability calendar, confirmed booking, quote, payment, delivery receipt, cloud sync or multiuser CRM is implied. Follow-up dates are local records, not background notifications. Local/browser storage is not encrypted by this app. Downloaded files and clipboard copies remain until removed through their respective device tools.
+
+Pending file imports are canceled by clear or newer edits, so delayed reads cannot restore discarded personal data. Browser regression tests cover visitor and operator clearing during an import.

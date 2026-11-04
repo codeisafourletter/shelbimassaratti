@@ -68,3 +68,17 @@ test('saved completed inquiry keeps its reference after reload and review',async
  const before=await page.locator('#brief-preview').inputValue();const id=before.match(/Reference: ([^\n]+)/)[1];
  await page.reload();await page.getByRole('button',{name:'Continue',exact:true}).click();await page.getByRole('button',{name:'Continue',exact:true}).click();await page.getByRole('button',{name:'Review my brief'}).click();await expect(page.locator('#brief-preview')).toHaveValue(new RegExp(id));
 });
+
+for(const area of ['visitor','operator'])test(`${area} clear cancels an in-flight file import`,async({page})=>{
+ await page.goto(area==='visitor'?'/inquire.html':'http://127.0.0.1:8055');
+ await page.evaluate(()=>{const read=File.prototype.text;File.prototype.text=function(){const file=this;return new Promise(resolve=>{window.finishPendingImport=async()=>resolve(await read.call(file));});};});
+ const file={name:'brief.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(M.create(source)))};
+ if(area==='visitor')await page.getByText('Reopen a saved inquiry',{exact:true}).click();
+ await page.locator(area==='visitor'?'#import-brief':'#desk-import').setInputFiles(file);
+ page.on('dialog',d=>d.accept());
+ await page.getByRole('button',{name:area==='visitor'?'Clear this draft and saved copy':'Clear the desk and saved copy'}).click();
+ await page.evaluate(()=>window.finishPendingImport());
+ if(area==='visitor'){await expect(page.locator('#name')).toHaveValue('');await expect(page.locator('#brief-preview')).toHaveValue('');}
+ else await expect(page.locator('#desk-detail')).toContainText('Start with a real inquiry.');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
