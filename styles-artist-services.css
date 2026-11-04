@@ -9,3 +9,22 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 @media(max-width:760px){.wrap{width:min(100% - 28px,1220px)}.nav-inner{min-height:68px}.brand-copy span{display:none}.menu-toggle{display:grid;place-items:center}.nav-links{position:absolute;left:14px;right:14px;top:calc(100% + 1px);display:none;padding:16px;background:rgba(10,9,9,.98);border:1px solid var(--line-dark);box-shadow:0 24px 60px rgba(0,0,0,.28)}.nav-links.open{display:grid}.nav-links>a{min-height:44px;display:flex;align-items:center}.nav-cta{margin-top:4px}.hero{min-height:auto}.hero-grid{min-height:auto;padding-top:104px}.hero-copy{padding-top:28px}h1{font-size:clamp(4rem,20vw,6.5rem)}h1 span{-webkit-text-stroke-width:1px}.hero-kicker{font-size:1.18rem}.hero-proof{grid-template-columns:1fr;margin-top:34px}.portrait-frame{min-height:430px;box-shadow:10px 10px 0 rgba(232,45,130,.2),0 30px 80px rgba(0,0,0,.4)}.portrait-accent{right:-3px;width:122px;padding:18px;font-size:.55rem}.culture-track{font-size:.92rem;gap:18px}.proof-strip-inner{grid-template-columns:1fr 1fr}.proof-label{grid-column:1/-1;border-bottom:1px solid var(--line)}section{padding:80px 0}h2{font-size:clamp(3rem,14vw,5.3rem)}.section-head{gap:20px}.service-grid,.record-grid{grid-template-columns:1fr}.service-card{min-height:250px}.service-card h3{margin-top:36px}.fit-list article{grid-template-columns:52px 1fr;padding:20px 17px;gap:14px}.fit-list article>span{font-size:1.55rem}.about-story,.about-facts{padding:30px 24px}.fact{grid-template-columns:70px 1fr}.plattinum-mark{min-height:430px}.release-art{min-height:450px}.media-item{display:grid}.media-item span{text-align:left}.footer-grid{align-items:flex-start;flex-direction:column}}
 @media(max-width:480px){.hero-actions .button{width:100%}.portrait-frame{min-height:390px}.fact{grid-template-columns:52px 1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}[data-reveal]{opacity:1;transform:none}.identity-track,.culture-track{animation:none}}
+
+/* Inquiry preparation stays in the browser; existing contact links remain below. */
+.inquiry{display:grid;gap:12px;width:100%;min-width:0;margin-bottom:24px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.3)}
+.inquiry h3{margin:0;font:900 1.8rem/1.1 var(--serif)}
+.inquiry p{margin:0;font-size:.9rem;line-height:1.5}
+.inquiry label{font-size:.9rem;font-weight:700}
+.inquiry input,.inquiry textarea{box-sizing:border-box;width:100%;min-width:0;padding:12px;border:1px solid #c3b5ba;border-radius:0;color:#151015;background:#fffaf4;font:inherit;font-size:16px}
+.inquiry textarea{resize:vertical}
+.inquiry input:focus-visible,.inquiry textarea:focus-visible{outline:3px solid #ff9bc5;outline-offset:3px}
+.inquiry-buttons{display:flex;flex-wrap:wrap;gap:12px}
+.inquiry-preview{display:grid;gap:12px}
+.inquiry[hidden],.inquiry-preview[hidden]{display:none}
+#inquiry-status{min-height:1.5em}
+
+.contact-grid{align-items:start}
+.inquiry .button-outline-light{background:transparent}
+#inquiry-tools{width:100%;margin-bottom:16px}
+#inquiry-tools summary{padding:16px;border:1px solid rgba(255,255,255,.6);cursor:pointer;font-weight:700;min-height:44px}
+#inquiry-tools[open] summary{margin-bottom:20px}

@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - name: Check out repository
@@ -26,3 +26,20 @@ jobs:
 
       - name: Validate generated site
         run: python tools/validate_site.py --site _site
+
+      - name: Set up Node.js for inquiry tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Test inquiry message preparation
+        run: node --test tests/*.test.cjs
+
+      - name: Install browser test tooling
+        run: npm ci
+
+      - name: Install Chromium for journey checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Test artist and operator journeys
+        run: npm run test:browser

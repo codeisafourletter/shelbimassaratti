@@ -12,6 +12,10 @@ INCLUDE_RE = re.compile(r"{%\s*include_relative\s+([^%\s]+)\s*%}")
 
 REQUIRED_PUBLIC_FILES = (
     "press-kit.html",
+    "inquire.html",
+    "inquire.css",
+    "inquire.js",
+    "brief-model.js",
     "privacy.html",
     "404.html",
     "secondary.css",

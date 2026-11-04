@@ -32,6 +32,34 @@
         <p class="contact-note">Links are better than large attachments. Keep the introduction clear and the music finished.</p>
       </div>
       <div class="contact-actions">
+        <a class="button button-light" href="/inquire.html">Plan your inquiry</a>
+        <details id="inquiry-tools" hidden>
+          <summary>Prepare your introduction</summary>
+        <form id="inquiry-form" class="inquiry" hidden>
+          <h3>Put your introduction together.</h3>
+          <p id="inquiry-help">Build a message, copy it, then send it on Instagram. Nothing is sent from this form.</p>
+          <label for="inquiry-artist">Artist name</label>
+          <input id="inquiry-artist" name="artist" maxlength="120" autocomplete="nickname" required>
+          <label for="inquiry-city">City / market</label>
+          <input id="inquiry-city" name="city" maxlength="120" autocomplete="address-level2" required>
+          <label for="inquiry-music">Music links — one per line, up to three</label>
+          <textarea id="inquiry-music" name="music" rows="3" maxlength="2000" spellcheck="false" required></textarea>
+          <label for="inquiry-context">Current audience or shows (optional)</label>
+          <textarea id="inquiry-context" name="context" rows="2" maxlength="600"></textarea>
+          <label for="inquiry-goal">What are you working toward? What help do you need?</label>
+          <textarea id="inquiry-goal" name="goal" rows="3" maxlength="1000" required></textarea>
+          <div class="inquiry-buttons">
+            <button type="submit" class="button button-light">Build my message</button>
+            <button type="reset" class="button button-outline-light">Clear</button>
+          </div>
+          <div id="inquiry-preview" class="inquiry-preview" hidden>
+            <label for="inquiry-message">Your message</label>
+            <textarea id="inquiry-message" rows="10" readonly></textarea>
+            <button id="inquiry-copy" type="button" class="button button-light">Copy message</button>
+          </div>
+          <p id="inquiry-status" role="status" aria-live="polite"></p>
+        </form>
+        </details>
         <a class="button button-light" href="https://www.instagram.com/plattinum817/" target="_blank" rel="noopener noreferrer">Send Music on Instagram</a>
         <a class="button button-outline-light" href="https://www.linkedin.com/in/shelbimassaratti" target="_blank" rel="noopener noreferrer">Professional Inquiry</a>
         <a class="button button-outline-light" href="/press-kit.html">View Press Kit</a>
