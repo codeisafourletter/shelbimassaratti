@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="theme-color" content="#11100f"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan Your Next Move | Shelbi Massaratti</title>
+<meta name="description" content="Prepare an artist, release, promotion or event inquiry for Shelbi Massaratti and Plattinum Management.">
+<link rel="canonical" href="https://shelbimassaratti.com/inquire.html">
+<meta property="og:title" content="Plan Your Next Move | Shelbi Massaratti"><meta property="og:description" content="Turn your music, event and goals into a clear inquiry."><meta property="og:url" content="https://shelbimassaratti.com/inquire.html"><meta property="og:type" content="website"><meta property="og:image" content="https://shelbimassaratti.com/social-card.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Plan Your Next Move | Shelbi Massaratti"><meta name="twitter:description" content="Prepare your artist or event inquiry."><meta name="twitter:image" content="https://shelbimassaratti.com/social-card.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="secondary.css"><link rel="stylesheet" href="inquire.css">
+<script defer src="brief-model.js"></script><script defer src="inquire.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to inquiry</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><span class="brand-mark">SM</span>Shelbi Massaratti</a><div class="nav-links"><a href="/#services">What I do</a><a href="press-kit.html">Press kit</a></div></div></nav>
+<main id="main" class="wrap inquiry-shell">
+<header class="inquiry-header"><span class="eyebrow">Plattinum Management / Make your next move</span><h1>Bring the vision.<br><em>Give it a plan.</em></h1><p class="lead">A record, a rollout, a show. Tell me where you are and what needs to happen next. Leave with a clear brief you can send.</p></header>
+<noscript><div class="notice">Introduce yourself, share your music or event details, city, goal and requested date in a message to <a href="https://www.instagram.com/plattinum817/">Plattinum Management on Instagram</a>. The guided builder needs JavaScript.</div></noscript>
+<div id="journey" hidden>
+<ol class="steps" aria-label="Inquiry progress"><li aria-current="step">01 / Your direction</li><li>02 / The details</li><li>03 / The plan</li><li>04 / Review &amp; send</li></ol>
+<div class="journey-layout"><form id="brief-form" novalidate>
+<section data-step="0" class="journey-panel"><span class="eyebrow">01 / Start here</span><h2>What are we building?</h2>
+<fieldset><legend>I’m reaching out about</legend><div class="choice-grid"><label class="choice"><input type="radio" name="kind" value="artist" required><strong>My music / an artist</strong><span>Direction, a release, promotion or opportunities.</span></label><label class="choice"><input type="radio" name="kind" value="event" required><strong>A show / an event</strong><span>A date, a venue and a clear booking inquiry.</span></label></div></fieldset>
+<label for="service">The main thing you need</label><select id="service" name="service" required><option value="">Choose a lane</option value="artist-direction">Artist direction</option><option value="release-planning">Release planning</option><option value="booking">Shows &amp; booking</option><option value="branding">Branding &amp; promotion</option><option value="media">Media &amp; opportunities</option></select>
+<p class="hint">Start with one priority. There’s room for context in the next steps.</p></section>
+<section data-step="1" class="journey-panel" hidden><span class="eyebrow">02 / Introduce yourself</span><h2>Put a name to it.</h2>
+<div class="field-pair"><div><label for="name">Your name / artist or organization</label><input id="name" name="name" maxlength="120" autocomplete="name" required></div><div><label for="city">City / market</label><input id="city" name="city" maxlength="120" autocomplete="address-level2" required></div></div>
+<label for="contact">Where should I reply? Email or social handle</label><input id="contact" name="contact" maxlength="200" required>
+<label for="music">Music links — up to three, one per line</label><textarea id="music" name="music" rows="3" maxlength="2000" spellcheck="false"></textarea><p class="hint" id="music-hint">Required for artist inquiries. Use finished records when you have them.</p>
+<label for="stage">Where’s the music right now?</label><select id="stage" name="stage"><option value="">Not applicable / prefer to discuss</option value="finished">Finished music ready to share</option><option value="in-progress">Recording or finishing a project</option><option value="planning">Planning the next project</option></select>
+</section>
+<section data-step="2" class="journey-panel" hidden><span class="eyebrow">03 / Make it specific</span><h2>What needs to happen?</h2>
+<label for="goal">Your goal and the help you need</label><textarea id="goal" name="goal" rows="4" maxlength="2000" required></textarea>
+<label for="audience">Audience, recent shows or expected attendance (optional)</label><textarea id="audience" name="audience" rows="2" maxlength="600"></textarea>
+<div class="field-pair"><div><label for="budget">Budget range or context (optional)</label><input id="budget" name="budget" maxlength="200" placeholder="A range, or what you’re still working out"></div><div><label for="date">Requested event / release date</label><input id="date" name="date" type="date"></div></div>
+<label for="venue">Venue or event location</label><input id="venue" name="venue" maxlength="300"><p class="hint">Date and venue are required for event inquiries. A requested date is not reserved.</p>
+</section>
+<section data-step="3" class="journey-panel" hidden><span class="eyebrow">04 / Make the introduction</span><h2>Your next move.</h2><p>Review your brief. Nothing has been sent or booked.</p>
+<label for="brief-preview">Your inquiry</label><textarea id="brief-preview" rows="14" readonly></textarea><h3>Before you send</h3><ul id="next-steps"></ul>
+<div class="actions"><button class="button button-primary" type="button" id="copy-brief">Copy inquiry</button><a class="button" id="send-brief" href="https://www.instagram.com/plattinum817/" target="_blank" rel="noopener noreferrer">Open Instagram to send</a></div>
+<details class="take-away"><summary>Keep a copy of your brief</summary><p>Save a text copy for yourself, or an inquiry file you can reopen here or share with the recipient. These files contain the details you entered.</p><div class="actions"><button type="button" class="button" id="download-text">Save text</button><button type="button" class="button" id="download-brief">Save inquiry file</button></div></details>
+</section>
+<p id="form-error" role="alert"></p><p id="journey-status" role="status" aria-live="polite"></p>
+<div class="step-actions"><button type="button" id="previous" class="button">Back</button><button type="submit" id="next" class="button button-primary">Continue</button></div>
+</form>
+<aside class="journey-aside"><span class="eyebrow">Good work starts here</span><h3>Make the ask clear.</h3><p>Give me the music or event, the context, and the actual goal. You don’t need a perfect pitch.</p><div class="aside-rule"></div><h3>Your draft, your choice.</h3><p>Details stay in this page unless you choose to save or share them. No automatic submission.</p><label class="save-choice"><input type="checkbox" id="remember"> Save my draft on this device</label><p class="hint">Use your own device. Saved drafts remain until you clear them.</p><button type="button" id="clear-draft" class="text-button">Clear this draft and saved copy</button><details><summary>Reopen a saved inquiry</summary><label for="import-brief">Choose your inquiry JSON file</label><input id="import-brief" type="file" accept=".json,application/json"></details><a href="privacy.html">How your details are handled</a></aside></div></div>
+</main>
+<footer class="site-footer"><div class="wrap footer-inner"><span>Shelbi Massaratti / Plattinum Management</span><div class="footer-links"><a href="/">Home</a><a href="privacy.html">Privacy</a></div></div></footer>
+</body></html>

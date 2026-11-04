@@ -34,3 +34,12 @@ jobs:
 
       - name: Test inquiry message preparation
         run: node --test tests/*.test.cjs
+
+      - name: Install browser test tooling
+        run: npm ci
+
+      - name: Install Chromium for journey checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Test artist and operator journeys
+        run: npm run test:browser

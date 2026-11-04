@@ -4,7 +4,7 @@ Static promotional website for Shelbi Massaratti and Plattinum Management, deplo
 
 ## Status
 
-Candidate: **1.0.0-rc.1**, the first numbered release (no previous tags). Adds a local inquiry builder; see [release notes](RELEASE-NOTES.md). Candidate changes are not deployed until the draft PR is reviewed and merged.
+Candidate: **1.0.0-rc.2** adds a complete artist/event inquiry journey and a local operator desk. See [release notes](RELEASE-NOTES.md) and the [workflow guide](docs/INQUIRY-WORKSPACE.md). Candidate changes are not deployed until the draft PR is reviewed and merged.
 
 Maintained production website. Pull requests build and validate the generated Pages artifact; publishing remains a separate deployment step.
 
@@ -66,3 +66,9 @@ Repository settings should use **Settings → Pages → Source: GitHub Actions**
 5. Update `sitemap.xml` only when a public page is added, removed or materially changed.
 6. Use a branch and draft pull request for major design, copy or workflow changes.
 7. Merge only after validation and visual review pass.
+
+## Inquiry operations
+
+Visitors prepare portable briefs at `/inquire.html`; sending happens through the existing Instagram link. To review shared inquiry files locally, run `python tools/serve_inquiry_desk.py` and open the printed loopback URL. The desk is excluded from the public build. It tracks local stages, follow-ups and notes with optional browser persistence and explicit import/export. It does not claim bookings or automatically receive/send messages.
+
+Browser journey checks use `npm ci`, `npx playwright install chromium`, then `npm run test:browser` after building. See the workflow guide for privacy, demo isolation, and migration details.
