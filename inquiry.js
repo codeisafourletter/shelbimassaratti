@@ -33,12 +33,16 @@
     preview.hidden = true;
     output.value = '';
     status.textContent = '';
-    music.setCustomValidity('');
+    for (const field of ['artist', 'city', 'goal', 'music']) form.elements.namedItem(field).setCustomValidity('');
   };
   form.addEventListener('input', clearPreview);
   form.addEventListener('reset', clearPreview);
   form.addEventListener('submit', event => {
     event.preventDefault();
+    for (const field of ['artist', 'city', 'goal']) {
+      const input = form.elements.namedItem(field);
+      input.setCustomValidity(input.value.trim() ? '' : 'Please add this detail.');
+    }
     if (!form.reportValidity()) return;
     try { output.value = formatInquiry(Object.fromEntries(new FormData(form))); }
     catch (error) {
