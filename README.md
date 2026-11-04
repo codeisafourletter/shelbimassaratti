@@ -2,6 +2,10 @@
 
 Static promotional website for Shelbi Massaratti and Plattinum Management, deployed to GitHub Pages at `shelbimassaratti.com`.
 
+## Status
+
+Maintained production website. Pull requests build and validate the generated Pages artifact; publishing remains a separate deployment step.
+
 ## Sources of truth
 
 The production implementation lives in this repository. Strategy, fact status, preferred copy, structure and design decisions are maintained in the Shelbi project-context folder. A deployed claim is not automatically approved: when repository copy conflicts with the decision log or fact register, correct the repository.
@@ -13,8 +17,8 @@ For major content changes, update the project context first, then implement the 
 The homepage is split into smaller source files:
 
 - `index.html` — document shell and homepage metadata
-- `styles1.css`, `styles2.css`, `styles3.css` — embedded homepage stylesheet sources
-- `body_part1.html`, `body_part2.html`, `body_part3.html` — homepage sections
+- `styles-foundation.css`, `styles-sections.css`, `styles-artist-services.css` — embedded homepage stylesheet sources
+- `sections-navigation-services.html`, `sections-about-work.html`, `sections-music-contact.html` — homepage sections
 - `script.js` — embedded homepage JavaScript
 - `secondary.css` — shared styles for the press kit, privacy page and 404 page
 - `press-kit.html`, `privacy.html`, `404.html` — standalone pages
